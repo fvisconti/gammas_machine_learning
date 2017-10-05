@@ -1,2 +1,11 @@
 # notebook checkpoint
 .ipynb_checkpoints/
+
+# html files
+*.html
+
+# command to make slides
+start_slides
+
+# images, plots
+imgs
