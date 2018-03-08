@@ -1,5 +1,4 @@
 # Some machine learning in gamma ray astronomy
-Mostly `scikit-learn` tools used in gamma ray ground based astronomy gamma-hadron classification.
 
 Gamma ray astronomy is the astronomical observation of gamma rays, the most energetic form of electromagnetic radiation, with photon energies above 100 keV. Radiation below 100 keV is classified as X-rays and is the subject of X-ray astronomy.
 
