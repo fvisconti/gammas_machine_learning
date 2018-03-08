@@ -1,0 +1,29 @@
+input_file, s, a, "",,,"Event data file"
+
+evtable,s,h,"EVENTS",,,"Event data extension"
+outfile,s,a,"out.fits",,,"Output file from astrimlreco. To be read from astrireco.cpp!!"
+
+do_gh_sep,  b, h, y,,, "Do gamma hadron separation?"
+do_en_reco, b, h, y,,, "Do energy reconstruction?"
+do_dir_reco,b, h, n,,, "Do arrival direction reconstruction?"
+
+# is_test,  b, h, y,,, "Is it a test to check performances? If yes, gammas and protons dir will be appended to input_dir"
+
+# use_caldb, b, h, no,,,"Use CALDB for retrieving LUT"
+is_mc,  b, h, y,,, "Is it a Montecarlo file? If yes, copy SIM_EVTS and TELCONF extensions"
+
+gh_model_file, s, a, "gh_rf.model.pkl",,,"Name of g/h RF model to be read"
+en_model_file, s, a, "en_rf.model.pkl",,,"Name of Energy reconstruction RF model to be read"
+dir_model_file, s, a, "dir_rf.model.pkl",,,"Name of Direction reconstruction RF model to be read"
+
+force_cuts,b,h,y,,, "Use same filter as the model (not implemented)"
+
+# Head tail discriminator parameter
+head_tail,s , h, "ASYM",ASYM|M3LONG,,"Head tail discriminator"
+
+logtype, s,h,"cout",,,"Type of logging (garbage cout cerr file db socket)"
+logfile, s,h,"",,,"Name of the log file (DEFAULT for default name)"
+chatter, i, h, 4,0,4,"Output verbosity"
+color,   b,h,n, , , "Enable colored output"
+clobber, b, h, yes, , , "Overwrite existing output files"
+mode,    s, h, "ql", , , "Mode of automatic parameters"

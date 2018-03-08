@@ -1,0 +1,115 @@
+gamma_dir,  s, h, "", , , "Directory of input gamma FITS files"
+proton_dir, s, h, "", , , "Directory of input proton FITS files"
+evtable,s,h,"EVENTS",,,"Event data extension"
+file_ext,s,h,".lv1b",,,"File extension of FITS input files"
+
+do_gh_sep, b, h, y,,, "Do gamma hadron separation?"
+do_en_reco,b, h, y,,, "Do energy reconstruction?"
+do_dir_reco,b, h, y,,, "Do arrival direction reconstruction?"
+
+# Available parameters
+# "SIZE","MEANX","MEANY","LENGTH","WIDTH","DELTA","ASYM","CONC","MDIST","M3LONG","LEAKAGE","DIST",
+# "MISS","ALPHA","COSDELTAALPHA","NUMISLAND","SIZEMISL","NUMCORE","NUMBOUNDARY"
+
+####################################
+##### SCIKIT-LEARN ONLY
+
+used_preprocessed_data, b, h, n,,, "Skip setup_for_training and reuse previously processed data?"
+
+#####################################
+###### Gamma/Hadron separation ######
+#####################################
+# RF g/h options (Scikit)
+gh_n_tree_sk,     i, h, 100, 1,, "Number of Random Forest trees"
+gh_max_features_sk,  s, h, "sqrt", 1,, "Splitting method"
+gh_n_jobs_sk,  i, h, 12,   1,, "Number of parallel jobs"
+gh_oob_ratio_sk,  b, h, y,,, "Use out of bag score"
+gh_sample_split_sk, i, h, 5,,, "Min sample split"
+gh_model_name_sk, s, h, "gh_rf.model",,,"Name of RF model to be saved"
+
+# RF g/h filtering for training quality
+gh_filter_cut, s, h, "SIZE > 50 && NUMISLAND < 2 && NUMCORE > 2 && LEAKAGE < 0.1 && LENGTH > 0 && WIDTH > 0",,,"filter using FITS filtering syntax"
+
+# RF g/h training parameters with Scikit-learn
+gh_sk_num_par, i, h, 7, 1,, "Number of g/h Random Forest training parameters"
+gh_sk_par1, s, h, "log10(events['SIZE'])",,,"1st parameter for g/h RF"
+gh_sk_par2, s, h, "events['WIDTH']",,, "2nd parameter for g/h RF"
+gh_sk_par3, s, h, "events['LENGTH']",,, "3rd parameter for g/h RF"
+gh_sk_par4, s, h, "log10(events['SIZE']/(events['WIDTH']*events['LENGTH']))",,,"4th parameter for g/h RF"
+gh_sk_par5, s, h, "events['CONC']",,,"5th parameter for g/h RF"
+gh_sk_par6, s, h, "events['DIST']",,,"6th parameter for g/h RF"
+gh_sk_par7, s, h, "events['M3LONG']*(events['COSDELTAALPHA']/abs(events['COSDELTAALPHA']))",,,"7th parameter for g/h RF"
+
+# Re-Sizing parameters (Scikit-learn)
+size_pos_sk, i, h, 1,,, "column position of size feature"
+n_resz_sk,  i, h, 100,1,,"Number of log bins for resizing"
+lo_resz_sk, r, h, 1,0,,"log10 lowest value of binning for resizing (phe)"
+hi_resz_sk, r, h, 6,0,,"log10 highest value of binning for resizing (phe)"
+
+# Re-Disting parameters (DIST0)
+dist_pos_sk, i, h, 6,,, "column position of dist feature"
+n_redist0_sk,  i, h, 5,1,,"Number of bins for redisting"
+lo_redist0_sk, r, h, 0,0,,"Lowest value of binning for redisting (deg)"
+hi_redist0_sk, r, h, 5,0,,"Highest value of binning for redisting (deg)"
+
+# Re-Zenithing parameters
+zenith_pos_sk, i, h,99,,, "column position of zenith feature"
+n_rezd_sk,  i, h, 1,1,,"Number of cos bins for rezenithing"
+
+# Re-Azimuthing parameters
+azimuth_pos_sk, i, h,99,,, "column position of azimuth feature"
+n_reaz_sk,  i, h, 1,1,,"Number of bins for reazimuthing"
+lo_reaz_sk, r, h, -180,0,,"Lowest value of binning for reazimuthing (deg)"
+hi_reaz_sk, r, h, 360,0,,"Highest value of binning for reazimuthing (deg)"
+
+###################################
+###### Energy Reconstruction ######
+###################################
+# RF energy reconstruction options
+en_n_tree_sk,     i, h, 100, 1,,"Number of Random Forest trees"
+en_max_features_sk,  s, h, "sqrt", 1,, "Splitting method"
+en_n_jobs_sk,  i, h, 12,   1,, "Number of parallel jobs"
+en_oob_ratio_sk,  b, h, y,,, "Use out of bag score"
+en_model_name_sk, s, h, "en_rf.model",,,"Name of RF model to be saved"
+
+# RF energy reconstruction filtering for training quality
+en_filter_cut, s, h, "SIZE > 50 && NUMISLAND < 2 && NUMCORE > 2 && LEAKAGE < 0.1 && LENGTH > 0 && WIDTH > 0",,,"filter using FITS filtering syntax"
+
+# RF energy training parameters
+en_sk_num_par, i, h, 6, 1,, "Number of energy Random Forest training parameters"
+en_sk_par1, s , h, "log10(events['SIZE'])",,,"1st parameter for energy RF"
+en_sk_par2, s , h, "events['WIDTH']",,, "2nd parameter for energy RF"
+en_sk_par3, s , h, "events['LENGTH']",,, "3rd parameter for energy RF"
+en_sk_par4, s , h, "log10(events['SIZE']/(events['WIDTH']*events['LENGTH']))",,,"4th parameter for energy RF"
+en_sk_par5, s , h, "events['CONC']",,,"5th parameter for energy RF"
+en_sk_par6, s , h, "events['LEAKAGE']",,,"6th parameter for energy RF"
+
+######################################
+###### Direction Reconstruction ######
+######################################
+# RF direction reconstruction options
+dir_n_tree_sk,     i, h, 100, 1,,"Number of Random Forest trees"
+dir_max_features_sk,  s, h, "sqrt", 1,, "Splitting method"
+dir_n_jobs_sk,  i, h, 12,   1,, "Number of parallel jobs"
+dir_oob_ratio_sk,  b, h, y,,, "Use out of bag score"
+dir_model_name_sk, s, h, "dir_rf.model",,,"Name of RF model to be saved"
+
+# RF direction reconstruction filtering for training quality
+dir_filter_cut, s, h, "SIZE > 50 && NUMISLAND < 2 && NUMCORE > 2 && LEAKAGE < 0.1 && LENGTH > 0 && WIDTH > 0",,,"filter using FITS filtering syntax"
+
+# RF direction training parameters
+dir_sk_num_par, i, h, 6, 1,, "Number of energy Random Forest training parameters"
+dir_sk_par1, s , h, "log10(events['SIZE'])",,,"1st parameter for direction RF"
+dir_sk_par2, s , h, "events['WIDTH']",,, "2nd parameter for direction RF"
+dir_sk_par3, s , h, "events['LENGTH']",,, "3rd parameter for direction RF"
+dir_sk_par4, s , h, "events['LENGTH']/events['WIDTH']",,,"4th parameter for direction RF"
+dir_sk_par5, s , h, "events['LEAKAGE']",,,"5th parameter for direction RF"
+dir_sk_par6, s , h, "abs(events['ASYM'])",,,"6th parameter for direction RF"
+
+
+
+chatter, i, h, 4,0,4,"Output verbosity"
+color,   b,h,y, , , "Enable colored output"
+clobber, b, h, yes, , , "Overwrite existing output files"
+mode,    s, h, "ql", , , "Mode of automatic parameters"
+
