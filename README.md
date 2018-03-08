@@ -41,3 +41,6 @@ Similar considerations hold for `astrimlreco.par`.
 
 ## Trained models
 Models are saved via `sklearn.externals.joblib` utility, this means it will be correctly read only with the same `scikit-learn`'s version used for its creation: the best practice for this is as usual to create a `conda` environment to perform the analysis.
+
+## Credits
+The code uses `pyAstriPar.py` written by @elehcim to handle IRAF *parfiles*.
