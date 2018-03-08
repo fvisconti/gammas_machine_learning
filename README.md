@@ -12,7 +12,7 @@ More on [CTA website](https://www.cta-observatory.org).
 ## Code
 The code is organized as follows:
 - `astriml_classes.py` has all the classes needed for the analysis;
-- `astriml.py` is a sample script to perform training and saving the trained model;
+- `astriml.py` is a sample script to perform training and save the trained model;
 - `astrimlreco.py` is a sample script to perform reconstruction.
 
 Logic in `astriml_classes.py` needs be improved: there's too much branching, due to a previous version written in `C++` with the `Shark` libraries.
