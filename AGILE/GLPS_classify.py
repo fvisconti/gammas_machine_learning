@@ -141,9 +141,6 @@ def main():
     # read the data into two pandas dataframes
     evstatus, flg_df = read_data(args.input_dir)
 
-    # evstatus = pd.concat(evstatus_list, ignore_index=True)
-    # flg_df = pd.concat(flg_list, ignore_index=True)
-
     # Encode labels to ints for processing
     le = LabelEncoder()
     labels = le.fit_transform(evstatus.values)
